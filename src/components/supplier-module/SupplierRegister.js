@@ -8,6 +8,7 @@ import {
 } from '../../store/actions/actionGenerator'
 import Heading from '../reusables/Heading'
 import Button from '../reusables/Button'
+import { withRouter } from 'react-router-dom'
 
 const SupplierRegister = (props) => {
     const { _id, name: supplierName, email: username, isAdmin, history, handleClose } = props
@@ -64,7 +65,7 @@ const SupplierRegister = (props) => {
             }
             console.log(formData)
             const redirect = () => {
-                history.push('/supplier/login')
+                history.push('/login')
             }
             if (_id) {
                 const updatedData = {
@@ -149,4 +150,5 @@ const SupplierRegister = (props) => {
         </div>
     )
 }
-export default SupplierRegister
+
+export default withRouter(SupplierRegister)

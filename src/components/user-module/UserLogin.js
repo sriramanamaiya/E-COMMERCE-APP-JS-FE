@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import validator from 'validator'
+import { withRouter } from 'react-router-dom'
 
 import { startUserLogin } from '../../store/actions/userAction'
 import Heading from '../reusables/Heading'
@@ -108,4 +109,4 @@ const UserLogin = (props) => {
     )
 }
 
-export default UserLogin
+export default withRouter(UserLogin)

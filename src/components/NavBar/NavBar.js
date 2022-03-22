@@ -11,6 +11,7 @@ import {
     supplierLoginedIn
 } from '../../store/actions/actionGenerator'
 import { setCart, startGetCart } from '../../store/actions/cartActions'
+import { NavDropdown } from 'react-bootstrap'
 
 const Navbar = (props) => {
     const { history } = props
@@ -68,154 +69,85 @@ const Navbar = (props) => {
                 Swal.fire('Not logged out', '', 'info')
             }
         })
+    }
 
-        // const confirm = window.confirm("Are You Sure")
-        // if( confirm ){
-        //     localStorage.removeItem("token")
-        //     localStorage.removeItem("role")
-        //     if( supplierLogin ){
-        //         dispatch(supplierLoginedIn())
-        //     }else{
-        //         dispatch(setCart([]))
-        //         dispatch(userLoggedIn())
-        //     }
-        //     history.push('/')
-        // }
+    const handleClick = () => {
+        history.push('/')
     }
 
     return (
-        <div>
-            <nav className="navbar navbar-expand-md navbar-dark bg-dark">
-                <div className="container">
-                    <Heading className="navbar-brand" type="h1" title="E-store 🏬" />
-                    <button
-                        type="button"
-                        className="navbar-toggler"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#navbarMenu"
-                    >
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
+        <nav className="navbar navbar-expand-md navbar-dark bg-dark">
+            <div className="container">
+                <Heading
+                    handleClick={handleClick}
+                    className="navbar-brand"
+                    type="h1"
+                    title="E-store 🏬"
+                />
+                <button
+                    type="button"
+                    className="navbar-toggler"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarMenu"
+                >
+                    <span className="navbar-toggler-icon"></span>
+                </button>
 
-                    <div className="collapse navbar-collapse" id="navbarMenu">
-                        <ul className="navbar-nav ms-auto">
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/">
-                                    {' '}
-                                    Home{' '}
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/products">
-                                    {' '}
-                                    Products{' '}
-                                </Link>
-                            </li>
+                <div className="collapse navbar-collapse" id="navbarMenu">
+                    <ul className="navbar-nav ms-auto">
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/">
+                                Home
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/products">
+                                Products
+                            </Link>
+                        </li>
 
-                            {(isLogin || supplierLogin) && (
-                                <>
-                                    {!supplierLogin && (
-                                        <li className="nav-item">
-                                            <Link className="nav-link" to="/cart">
-                                                {' '}
-                                                {`Cart- ${result.length}`}{' '}
-                                            </Link>
-                                        </li>
-                                    )}
-                                </>
-                            )}
+                        {(isLogin || supplierLogin) && (
+                            <>
+                                {!supplierLogin && (
+                                    <li className="nav-item">
+                                        <Link className="nav-link" to="/cart">
+                                            {`Cart- ${result.length}`}
+                                        </Link>
+                                    </li>
+                                )}
+                            </>
+                        )}
 
-                            {isLogin || supplierLogin ? (
-                                <>
-                                    <li className="nav-item dropdown">
-                                        <Link
-                                            className="nav-link dropdown-toggle"
-                                            role="button"
-                                            data-bs-toggle="dropdown"
-                                            to="/user"
-                                        >
-                                            {' '}
-                                            {isLogin ? 'User' : 'Supplier'}{' '}
-                                        </Link>
-                                        <ul className="dropdown-menu">
-                                            <li>
-                                                <Link className="dropdown-item" to="/account">
-                                                    {' '}
-                                                    Account{' '}
-                                                </Link>
-                                                <Link
-                                                    className="dropdown-item"
-                                                    to="#"
-                                                    onClick={handleLogOut}
-                                                >
-                                                    {' '}
-                                                    Log-out{' '}
-                                                </Link>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </>
-                            ) : (
-                                <>
-                                    <li className="nav-item dropdown">
-                                        <Link
-                                            className="nav-link dropdown-toggle"
-                                            role="button"
-                                            data-bs-toggle="dropdown"
-                                            to="/user"
-                                        >
-                                            {' '}
-                                            User{' '}
-                                        </Link>
-                                        <ul className="dropdown-menu">
-                                            <li>
-                                                <Link className="dropdown-item" to="/user/register">
-                                                    {' '}
-                                                    Register{' '}
-                                                </Link>
-                                                <Link className="dropdown-item" to="/user/login">
-                                                    {' '}
-                                                    Login{' '}
-                                                </Link>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li className="nav-item dropdown">
-                                        <Link
-                                            className="nav-link dropdown-toggle"
-                                            role="button"
-                                            data-bs-toggle="dropdown"
-                                            to="/user"
-                                        >
-                                            {' '}
-                                            Supplier{' '}
-                                        </Link>
-                                        <ul className="dropdown-menu">
-                                            <li>
-                                                <Link
-                                                    className="dropdown-item"
-                                                    to="/supplier/register"
-                                                >
-                                                    {' '}
-                                                    Register{' '}
-                                                </Link>
-                                                <Link
-                                                    className="dropdown-item"
-                                                    to="/supplier/login"
-                                                >
-                                                    {' '}
-                                                    Login{' '}
-                                                </Link>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </>
-                            )}
-                        </ul>
-                    </div>
+                        {isLogin || supplierLogin ? (
+                            <>
+                                <NavDropdown
+                                    title={isLogin ? 'User' : 'Supplier'}
+                                    id="basic-nav-dropdown"
+                                >
+                                    <NavDropdown.Item href="/account">Account</NavDropdown.Item>
+                                    <NavDropdown.Item href="#" onClick={handleLogOut}>
+                                        Log-out
+                                    </NavDropdown.Item>
+                                </NavDropdown>
+                            </>
+                        ) : (
+                            <>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/login">
+                                        Login
+                                    </Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/register">
+                                        Register
+                                    </Link>
+                                </li>
+                            </>
+                        )}
+                    </ul>
                 </div>
-            </nav>
-        </div>
+            </div>
+        </nav>
     )
 }
 

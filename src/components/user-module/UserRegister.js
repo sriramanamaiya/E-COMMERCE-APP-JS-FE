@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import validator from 'validator'
+import { withRouter } from 'react-router-dom'
 
 import Heading from '../reusables/Heading'
 import { startEditUserAccount, startRegisterUser } from '../../store/actions/userAction'
@@ -94,7 +95,7 @@ const UserRegister = (props) => {
             console.log(regData)
 
             const redirect = () => {
-                props.history.push('/user/login')
+                props.history.push('/login')
             }
 
             const updateData = {
@@ -217,4 +218,4 @@ const UserRegister = (props) => {
     )
 }
 
-export default UserRegister
+export default withRouter(UserRegister)

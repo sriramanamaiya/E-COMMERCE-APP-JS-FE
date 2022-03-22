@@ -1,5 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
+import logger from 'redux-logger'
 
 import productsReducer from './reducers/productsReducer'
 import cartReducer from './reducers/cartReducer'
@@ -16,7 +17,7 @@ const configureStore = () => {
             supplierLogin: supplierLoginReducer,
             paymentData: paymentReducer
         }),
-        applyMiddleware(thunk)
+        applyMiddleware(thunk, logger)
     )
     return store
 }

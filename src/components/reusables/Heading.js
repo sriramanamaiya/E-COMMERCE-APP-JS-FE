@@ -1,11 +1,15 @@
 import React from 'react'
 
 const Heading = (props) => {
-    const { className, type, title } = props
+    const { className, type, title, handleClick } = props
 
     let heading
     if (type === 'h1') {
-        heading = <h1 className={className}>{title}</h1>
+        heading = (
+            <h1 className={className} onClick={handleClick}>
+                {title}
+            </h1>
+        )
     } else if (type === 'h2') {
         heading = <h2 className={className}>{title}</h2>
     } else if (type === 'h3') {

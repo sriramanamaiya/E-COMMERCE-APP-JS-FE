@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import validator from 'validator'
+import { withRouter } from 'react-router-dom'
 
 import Heading from '../reusables/Heading'
 import { startsupplierLogin } from '../../store/actions/actionGenerator'
@@ -101,4 +102,5 @@ const SupplierLogin = (props) => {
         </div>
     )
 }
-export default SupplierLogin
+
+export default withRouter(SupplierLogin)
