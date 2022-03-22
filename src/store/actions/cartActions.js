@@ -1,12 +1,13 @@
-import axios from "axios"
+import axios from 'axios'
 
 export const startGetCart = () => {
     return (dispatch) => {
-        axios.get('/api/cart', {
-            headers: {
-                "Token" : `Bearer ${localStorage.getItem('token')}`
-            }
-        })
+        axios
+            .get('/api/cart', {
+                headers: {
+                    Token: `Bearer ${localStorage.getItem('token')}`
+                }
+            })
             .then((response) => {
                 const result = response.data
                 console.log('get cart', result)
@@ -14,9 +15,9 @@ export const startGetCart = () => {
             })
             .catch((error) => {
                 console.log(error)
-            })  
+            })
     }
-}  
+}
 
 export const setCart = (cartItems) => {
     return {
@@ -27,11 +28,12 @@ export const setCart = (cartItems) => {
 
 export const startAddToCart = (cartBody, productId) => {
     return (dispatch) => {
-        axios.post(`/api/cart/${productId}`, cartBody, {
-            headers: {
-                "Token" : `Bearer ${localStorage.getItem('token')}`
-            }
-        })
+        axios
+            .post(`/api/cart/${productId}`, cartBody, {
+                headers: {
+                    Token: `Bearer ${localStorage.getItem('token')}`
+                }
+            })
             .then((response) => {
                 const result = response.data
                 // console.log('add', result)
@@ -45,18 +47,19 @@ export const startAddToCart = (cartBody, productId) => {
 
 export const addCart = (cartItem) => {
     return {
-        type: "ADD_CART",
+        type: 'ADD_CART',
         payload: cartItem
     }
 }
 
 export const startDeleteCart = (cartId) => {
     return (dispatch) => {
-        axios.delete(`/api/cart/${cartId}`, {
-            headers: {
-                "Token" : `Bearer ${localStorage.getItem('token')}`
-            }
-        })
+        axios
+            .delete(`/api/cart/${cartId}`, {
+                headers: {
+                    Token: `Bearer ${localStorage.getItem('token')}`
+                }
+            })
             .then((response) => {
                 const result = response.data
                 // console.log('del', result)
@@ -70,7 +73,7 @@ export const startDeleteCart = (cartId) => {
 
 export const removeCart = (_id) => {
     return {
-        type: "REMOVE_CART",
+        type: 'REMOVE_CART',
         payload: _id
     }
 }

@@ -1,13 +1,14 @@
-import React, { useState } from "react"
-import Heading from "../reusables/Heading"
-import { useDispatch } from "react-redux"
-import { startsupplierLogin } from "../../actions/actionGenerator"
-import validator from "validator"
-import Button from "../reusables/Button"
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import validator from 'validator'
+
+import Heading from '../reusables/Heading'
+import { startsupplierLogin } from '../../store/actions/actionGenerator'
+import Button from '../reusables/Button'
 
 const SupplierLogin = (props) => {
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
     const [errors, setErrors] = useState({})
     const error = {}
 
@@ -16,23 +17,23 @@ const SupplierLogin = (props) => {
     const handleChange = (e) => {
         const input = e.target.value
         const selectInput = e.target.name
-        if (selectInput === "email") {
+        if (selectInput === 'email') {
             setEmail(input)
         }
-        if (selectInput === "password") {
+        if (selectInput === 'password') {
             setPassword(input)
         }
     }
 
     const runCallback = () => {
-        if (email === "") {
-            error.name = "please enter the Email!"
+        if (email === '') {
+            error.name = 'please enter the Email!'
         }
         if (!validator.isEmail(email.trim())) {
-            error.email = "Invalid Email"
+            error.email = 'Invalid Email'
         }
-        if (password === "") {
-            error.password = "please enter the password!"
+        if (password === '') {
+            error.password = 'please enter the password!'
         }
     }
 
@@ -44,11 +45,11 @@ const SupplierLogin = (props) => {
         } else {
             const formData = {
                 email,
-                password,
+                password
             }
             console.log(formData)
             const redirect = () => {
-                props.history.push("/")
+                props.history.push('/')
             }
             dispatch(startsupplierLogin(formData, redirect))
         }
@@ -69,9 +70,7 @@ const SupplierLogin = (props) => {
                             placeholder="Enter your email"
                             onChange={handleChange}
                         />
-                        {errors.email && (
-                            <span className="text-danger">{errors.email}</span>
-                        )}
+                        {errors.email && <span className="text-danger">{errors.email}</span>}
                     </div>
                 </div>
                 <div className="row mb-4">
@@ -84,26 +83,18 @@ const SupplierLogin = (props) => {
                             placeholder="Enter your password"
                             onChange={handleChange}
                         />
-                        {errors.password && (
-                            <span className="text-danger">
-                                {errors.password}
-                            </span>
-                        )}
+                        {errors.password && <span className="text-danger">{errors.password}</span>}
                     </div>
                 </div>
 
-                <input
-                    className="btn btn-primary"
-                    type="submit"
-                    value="Login"
-                />
+                <input className="btn btn-primary" type="submit" value="Login" />
 
                 <Button
                     className="btn btn-outline-secondary mx-4"
                     type="button"
                     value="Cancel"
                     handleClick={() => {
-                        props.history.push("/")
+                        props.history.push('/')
                     }}
                 />
             </form>

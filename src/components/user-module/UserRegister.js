@@ -1,12 +1,20 @@
 import React, { useState } from 'react'
-import Heading from '../reusables/Heading'
 import { useDispatch } from 'react-redux'
-import { startEditUserAccount, startRegisterUser } from '../../actions/userAction'
 import validator from 'validator'
+
+import Heading from '../reusables/Heading'
+import { startEditUserAccount, startRegisterUser } from '../../store/actions/userAction'
 import Button from '../reusables/Button'
 
 const UserRegister = (props) => {
-    const { _id, name: userName, email: userEmail, age: userAge, gender: userGender, handleClose } = props
+    const {
+        _id,
+        name: userName,
+        email: userEmail,
+        age: userAge,
+        gender: userGender,
+        handleClose
+    } = props
     const dispatch = useDispatch()
     const [name, setName] = useState(userName ? userName : '')
     const [email, setEmail] = useState(userEmail ? userEmail : '')
@@ -81,7 +89,7 @@ const UserRegister = (props) => {
                 age,
                 gender,
                 password,
-                isAdmin,
+                isAdmin
             }
             console.log(regData)
 
@@ -93,7 +101,7 @@ const UserRegister = (props) => {
                 name,
                 email: userEmail,
                 age,
-                gender,
+                gender
             }
 
             if (_id) {
@@ -118,7 +126,9 @@ const UserRegister = (props) => {
                             onChange={handleChange}
                             placeholder="Enter your Name"
                         />
-                        {formErrors.name ? <span className="text-danger">{formErrors.name}</span> : null}
+                        {formErrors.name ? (
+                            <span className="text-danger">{formErrors.name}</span>
+                        ) : null}
                     </div>
                 </div>
                 <div className="row mb-3">
@@ -131,7 +141,9 @@ const UserRegister = (props) => {
                             onChange={handleChange}
                             placeholder="Enter your Email"
                         />
-                        {formErrors.email ? <span className="text-danger">{formErrors.email}</span> : null}
+                        {formErrors.email ? (
+                            <span className="text-danger">{formErrors.email}</span>
+                        ) : null}
                     </div>
                 </div>
                 <div className="row mb-3">
@@ -144,7 +156,9 @@ const UserRegister = (props) => {
                             onChange={handleChange}
                             placeholder="Enter your age"
                         />
-                        {formErrors.age ? <span className="text-danger">{formErrors.age}</span> : null}
+                        {formErrors.age ? (
+                            <span className="text-danger">{formErrors.age}</span>
+                        ) : null}
                     </div>
                 </div>
                 <div className="row mb-3">
@@ -157,7 +171,9 @@ const UserRegister = (props) => {
                             onChange={handleChange}
                             placeholder="Enter your gender"
                         />
-                        {formErrors.gender ? <span className="text-danger">{formErrors.gender}</span> : null}
+                        {formErrors.gender ? (
+                            <span className="text-danger">{formErrors.gender}</span>
+                        ) : null}
                     </div>
                 </div>
                 {!_id && (
@@ -178,7 +194,11 @@ const UserRegister = (props) => {
                     </div>
                 )}
 
-                <input className="btn btn-primary mt-3" type="submit" value={_id ? 'Save' : 'Register'} />
+                <input
+                    className="btn btn-primary mt-3"
+                    type="submit"
+                    value={_id ? 'Save' : 'Register'}
+                />
 
                 <Button
                     className="btn btn-outline-secondary mt-3 mx-3"

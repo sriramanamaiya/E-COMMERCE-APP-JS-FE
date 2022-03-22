@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from "react"
-import { useSelector, useDispatch } from "react-redux"
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import swal from 'sweetalert'
+import { MdDelete } from 'react-icons/md'
+
 import {
     setAddAddressError,
     stateAddAddress,
     stateAllAddresses,
-    stateDeleteAddress,
-} from "../../actions/actionGenerator"
-import Heading from "../reusables/Heading"
-import { setCart, startDeleteCart } from "../../actions/cartActions"
-import swal from "sweetalert"
-import { MdDelete } from "react-icons/md"
+    stateDeleteAddress
+} from '../../store/actions/actionGenerator'
+import Heading from '../reusables/Heading'
+import { setCart, startDeleteCart } from '../../store/actions/cartActions'
 
 const Payment = (props) => {
     const dispatch = useDispatch()
@@ -17,22 +18,17 @@ const Payment = (props) => {
     const cartData = useSelector((state) => {
         return state.cart.data
     })
-    console.log("c d ", cartData)
+    console.log('c d ', cartData)
 
-    const [landmark, setLandMark] = useState("")
-    const [city, setCity] = useState("")
-    const [state, setState] = useState("")
-    const [pincode, setPincode] = useState("")
+    const [landmark, setLandMark] = useState('')
+    const [city, setCity] = useState('')
+    const [state, setState] = useState('')
+    const [pincode, setPincode] = useState('')
 
-    const [method, setMethod] = useState("")
-    const [selectAddress, setSelectAddress] = useState("")
+    const [method, setMethod] = useState('')
+    const [selectAddress, setSelectAddress] = useState('')
     const [addressToggle, setAddressToggle] = useState(false)
-    const paymentMethods = [
-        "debit card",
-        "credit card",
-        "paytm UPI",
-        "phonepay UPI",
-    ]
+    const paymentMethods = ['debit card', 'credit card', 'paytm UPI', 'phonepay UPI']
     const [formErrors, setErrors] = useState({})
     const errors = {}
     const paymentAddress = useSelector((state) => {
@@ -44,28 +40,28 @@ const Payment = (props) => {
     const handleChange = (e) => {
         const input = e.target.name
         const value = e.target.value
-        if (input === "method") {
+        if (input === 'method') {
             setMethod(value)
         }
-        if (input === "addresses") {
+        if (input === 'addresses') {
             setSelectAddress(value)
         }
-        if (input === "landmark") {
+        if (input === 'landmark') {
             setLandMark(value)
         }
-        if (input === "city") {
+        if (input === 'city') {
             setCity(value)
         }
-        if (input === "state") {
+        if (input === 'state') {
             setState(value)
         }
-        if (input === "pincode") {
+        if (input === 'pincode') {
             setPincode(value)
         }
     }
 
     useEffect(() => {
-        if (addressError === "") {
+        if (addressError === '') {
             setAddressToggle(false)
         } else {
             setAddressToggle(true)
@@ -82,22 +78,22 @@ const Payment = (props) => {
             landmark,
             city,
             state,
-            pincode,
+            pincode
         }
         dispatch(stateAddAddress(formData))
         setAddressToggle(false)
-        setLandMark("")
-        setCity("")
-        setState("")
-        setPincode("")
+        setLandMark('')
+        setCity('')
+        setState('')
+        setPincode('')
     }
 
     const runCallback = () => {
-        if (method === "") {
-            errors.method = "please select the card"
+        if (method === '') {
+            errors.method = 'please select the card'
         }
-        if (selectAddress === "") {
-            errors.selectAddress = "please select the address"
+        if (selectAddress === '') {
+            errors.selectAddress = 'please select the address'
         }
     }
 
@@ -109,22 +105,22 @@ const Payment = (props) => {
             setErrors({})
             const data = {
                 method,
-                selectAddress,
+                selectAddress
             }
-            setSelectAddress("")
-            setMethod("")
+            setSelectAddress('')
+            setMethod('')
             setAddressToggle(false)
-            dispatch(setAddAddressError(""))
+            dispatch(setAddAddressError(''))
             // alert('order placed successfully')
             swal({
-                title: "Order Placed Successfully",
-                icon: "success",
+                title: 'Order Placed Successfully',
+                icon: 'success'
             })
             dispatch(setCart([]))
             for (const ele of cartData) {
                 dispatch(startDeleteCart(ele._id))
             }
-            props.history.push("/")
+            props.history.push('/')
         }
     }
 
@@ -134,9 +130,7 @@ const Payment = (props) => {
             {paymentAddress.length > 0 ? (
                 <>
                     {formErrors.selectAddress && (
-                        <p className="text-danger">
-                            {formErrors.selectAddress}
-                        </p>
+                        <p className="text-danger">{formErrors.selectAddress}</p>
                     )}
                     {paymentAddress.map((address, i) => {
                         return (
@@ -155,9 +149,7 @@ const Payment = (props) => {
                                 </span>
                                 <span
                                     onClick={() => {
-                                        dispatch(
-                                            stateDeleteAddress(address._id)
-                                        )
+                                        dispatch(stateDeleteAddress(address._id))
                                     }}
                                 >
                                     <MdDelete size="1.5rem" />
@@ -179,9 +171,7 @@ const Payment = (props) => {
                 Add address
             </button>
             <div className="mt-2 mb-4">
-                {addressError && (
-                    <p style={{ color: "red" }}>!{addressError}!</p>
-                )}
+                {addressError && <p style={{ color: 'red' }}>!{addressError}!</p>}
             </div>
 
             {addressToggle && (
@@ -238,22 +228,19 @@ const Payment = (props) => {
                         </div>
                     </div>
 
-                    <button
-                        className="btn btn-success me-3"
-                        onClick={handleSave}
-                    >
+                    <button className="btn btn-success me-3" onClick={handleSave}>
                         Save
                     </button>
                     <button
                         className="btn btn-secondary"
                         onClick={(e) => {
                             e.preventDefault()
-                            dispatch(setAddAddressError(""))
+                            dispatch(setAddAddressError(''))
                             setAddressToggle(false)
-                            setLandMark("")
-                            setCity("")
-                            setState("")
-                            setPincode("")
+                            setLandMark('')
+                            setCity('')
+                            setState('')
+                            setPincode('')
                         }}
                     >
                         Cancel
@@ -263,9 +250,7 @@ const Payment = (props) => {
             <hr />
 
             <h3>Select Payment Method</h3>
-            {formErrors.method && (
-                <p className="text-danger">{formErrors.method}</p>
-            )}
+            {formErrors.method && <p className="text-danger">{formErrors.method}</p>}
 
             <div className="row mb-4">
                 <div className="col-md-4">
@@ -287,7 +272,7 @@ const Payment = (props) => {
                 </div>
             </div>
 
-            {method === "debit card" && (
+            {method === 'debit card' && (
                 <form>
                     <div className="row mb-4">
                         <div className="col-md-4">
@@ -301,17 +286,13 @@ const Payment = (props) => {
 
                     <div className="row mb-4">
                         <div className="col-md-4">
-                            <input
-                                className="form-control"
-                                type="text"
-                                placeholder="CVV"
-                            />
+                            <input className="form-control" type="text" placeholder="CVV" />
                         </div>
                     </div>
                 </form>
             )}
 
-            {method === "credit card" && (
+            {method === 'credit card' && (
                 <form>
                     <div className="row mb-4">
                         <div className="col-md-4">
@@ -324,17 +305,13 @@ const Payment = (props) => {
                     </div>
                     <div className="row mb-4">
                         <div className="col-md-4">
-                            <input
-                                className="form-control"
-                                type="text"
-                                placeholder="Cvv"
-                            />
+                            <input className="form-control" type="text" placeholder="Cvv" />
                         </div>
                     </div>
                 </form>
             )}
 
-            {method === "paytm UPI" && (
+            {method === 'paytm UPI' && (
                 <form>
                     <div className="row mb-4">
                         <div className="col-md-4">
@@ -347,17 +324,13 @@ const Payment = (props) => {
                     </div>
                     <div className="row mb-4">
                         <div className="col-md-4">
-                            <input
-                                className="form-control"
-                                type="text"
-                                placeholder="password"
-                            />
+                            <input className="form-control" type="text" placeholder="password" />
                         </div>
                     </div>
                 </form>
             )}
 
-            {method === "phonepay UPI" && (
+            {method === 'phonepay UPI' && (
                 <form>
                     <div className="row mb-4">
                         <div className="col-md-4">
@@ -370,11 +343,7 @@ const Payment = (props) => {
                     </div>
                     <div className="row mb-4">
                         <div className="col-md-4">
-                            <input
-                                className="form-control"
-                                type="text"
-                                placeholder="password"
-                            />
+                            <input className="form-control" type="text" placeholder="password" />
                         </div>
                     </div>
                 </form>

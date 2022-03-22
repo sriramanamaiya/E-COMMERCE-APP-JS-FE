@@ -1,39 +1,39 @@
 const productsInitialState = {
     isLoading: false,
-    data:  [],
+    data: [],
     errors: {}
 }
 
 const productsReducer = (state = productsInitialState, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case 'SET_PRODUCTS': {
-            return {...state, data: [...action.payload]}
+            return { ...state, data: [...action.payload] }
         }
         case 'ADD_PRODUCT': {
-            return {...state, data: [...state.data, {...action.payload}]}
+            return { ...state, data: [...state.data, { ...action.payload }] }
         }
         case 'UPDATE_PRODUCT': {
             // console.log(state.data)
             const result = state.data.map((product) => {
-                if(product._id === action.payload._id){
-                    return {...product, ...action.payload}
+                if (product._id === action.payload._id) {
+                    return { ...product, ...action.payload }
                 } else {
-                    return {...product} 
+                    return { ...product }
                 }
             })
             // console.log(result)
-            return {...state, data: [...result]} 
+            return { ...state, data: [...result] }
         }
         case 'REMOVE_PRODUCT': {
             const result = state.data.filter((product) => {
                 return product._id !== action.payload
             })
-            return {...state, data: [...result]}
+            return { ...state, data: [...result] }
         }
         default: {
-            return {...state}
+            return { ...state }
         }
     }
 }
 
-export default productsReducer 
+export default productsReducer

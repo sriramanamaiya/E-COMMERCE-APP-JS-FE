@@ -1,14 +1,14 @@
-import React from "react"
-import { useSelector } from "react-redux"
-import { withRouter } from "react-router-dom"
-import Heading from "../reusables/Heading"
+import React from 'react'
+import { useSelector } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+
+import Heading from '../reusables/Heading'
 import Button from '../reusables/Button'
 
 const CartTotal = (props) => {
-
     const userId = useSelector((state) => {
         return state.customer.data._id
-    }) 
+    })
 
     const cartData = useSelector((state) => {
         return state.cart.data
@@ -20,7 +20,7 @@ const CartTotal = (props) => {
 
     const totalPrice = () => {
         let sum = 0
-        for(const item of result) {
+        for (const item of result) {
             sum += Number(item.productId.price)
         }
         return sum
@@ -37,7 +37,7 @@ const CartTotal = (props) => {
             <Heading
                 className="mt-2 d-flex justify-content-end"
                 type="h4"
-                title={`Subtotal(${result.length}items) - ${price}`} 
+                title={`Subtotal(${result.length}items) - ${price}`}
             />
 
             <div className="d-flex justify-content-end">
@@ -45,8 +45,8 @@ const CartTotal = (props) => {
                     type="button"
                     className="btn btn-outline-success my-3"
                     value="CheckOut"
-                    handleClick={ handleCheckout }
-                /> 
+                    handleClick={handleCheckout}
+                />
             </div>
         </>
     )

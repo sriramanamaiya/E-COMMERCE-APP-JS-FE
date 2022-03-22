@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { startUserLogin } from '../../actions/userAction'
-import Heading from '../reusables/Heading'
 import validator from 'validator'
+
+import { startUserLogin } from '../../store/actions/userAction'
+import Heading from '../reusables/Heading'
 import Button from '../reusables/Button'
 
 const UserLogin = (props) => {
@@ -45,7 +46,7 @@ const UserLogin = (props) => {
         if (Object.keys(errors).length === 0) {
             const loginData = {
                 email: name,
-                password,
+                password
             }
             console.log('userLogin', loginData)
 
@@ -70,7 +71,9 @@ const UserLogin = (props) => {
                             onChange={handleChange}
                             placeholder="Enter your Email"
                         />
-                        {formErrors.name ? <div className="text-danger">{formErrors.name}</div> : null}
+                        {formErrors.name ? (
+                            <div className="text-danger">{formErrors.name}</div>
+                        ) : null}
                     </div>
                 </div>
 

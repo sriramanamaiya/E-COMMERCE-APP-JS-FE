@@ -1,5 +1,5 @@
-import React from "react"
-import { Button, Modal } from "react-bootstrap"
+import React from 'react'
+import { Button, Modal } from 'react-bootstrap'
 
 const ModalComp = (props) => {
     const {
@@ -12,7 +12,7 @@ const ModalComp = (props) => {
         titleComponent,
         bodyComponent,
         hideVariant,
-        hideText,
+        hideText
     } = props
 
     return (
@@ -29,9 +29,7 @@ const ModalComp = (props) => {
                 centered
             >
                 <Modal.Header>
-                    <Modal.Title id="contained-modal-title-vcenter">
-                        {titleComponent}
-                    </Modal.Title>
+                    <Modal.Title id="contained-modal-title-vcenter">{titleComponent}</Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body>{bodyComponent}</Modal.Body>

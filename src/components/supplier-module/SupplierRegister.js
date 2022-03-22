@@ -1,25 +1,19 @@
-import React, { useState } from "react"
-import { useDispatch } from "react-redux"
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import validator from 'validator'
+
 import {
     startSupplierAccountEdit,
-    startSupplierRegister,
-} from "../../actions/actionGenerator"
-import Heading from "../reusables/Heading"
-import validator from "validator"
-import Button from "../reusables/Button"
+    startSupplierRegister
+} from '../../store/actions/actionGenerator'
+import Heading from '../reusables/Heading'
+import Button from '../reusables/Button'
 
 const SupplierRegister = (props) => {
-    const {
-        _id,
-        name: supplierName,
-        email: username,
-        isAdmin,
-        history,
-        handleClose,
-    } = props
-    const [name, setName] = useState(supplierName ? supplierName : "")
-    const [email, setEmail] = useState(username ? username : "")
-    const [password, setPassword] = useState("")
+    const { _id, name: supplierName, email: username, isAdmin, history, handleClose } = props
+    const [name, setName] = useState(supplierName ? supplierName : '')
+    const [email, setEmail] = useState(username ? username : '')
+    const [password, setPassword] = useState('')
     const [formErrors, setErrors] = useState({})
     const errors = {}
 
@@ -28,30 +22,30 @@ const SupplierRegister = (props) => {
     const handleChange = (e) => {
         const input = e.target.name
         const value = e.target.value
-        if (input === "name") {
+        if (input === 'name') {
             setName(value)
         }
-        if (input === "email") {
+        if (input === 'email') {
             setEmail(value)
         }
-        if (input === "password") {
+        if (input === 'password') {
             setPassword(value)
         }
     }
 
     const runCallback = () => {
-        if (name === "") {
-            errors.name = "please enter the name"
+        if (name === '') {
+            errors.name = 'please enter the name'
         }
         if (email.trim().length === 0) {
-            errors.email = "please enter email!"
+            errors.email = 'please enter email!'
         }
         if (!validator.isEmail(email.trim())) {
-            errors.email = "Invalid Email"
+            errors.email = 'Invalid Email'
         }
         if (!_id) {
-            if (password === "") {
-                errors.password = "please enter password!"
+            if (password === '') {
+                errors.password = 'please enter password!'
             }
         }
     }
@@ -66,22 +60,20 @@ const SupplierRegister = (props) => {
             const formData = {
                 name,
                 email,
-                password,
+                password
             }
             console.log(formData)
             const redirect = () => {
-                history.push("/supplier/login")
+                history.push('/supplier/login')
             }
             if (_id) {
                 const updatedData = {
                     name,
                     email: username,
-                    isAdmin,
+                    isAdmin
                 }
                 console.log(updatedData)
-                dispatch(
-                    startSupplierAccountEdit(_id, updatedData, handleClose)
-                )
+                dispatch(startSupplierAccountEdit(_id, updatedData, handleClose))
             } else {
                 dispatch(startSupplierRegister(formData, redirect))
             }
@@ -90,9 +82,7 @@ const SupplierRegister = (props) => {
 
     return (
         <div className="container mt-5">
-            {!_id && (
-                <Heading className="mb-4" type="h3" title="Register here" />
-            )}
+            {!_id && <Heading className="mb-4" type="h3" title="Register here" />}
             <form onSubmit={handleSubmit}>
                 <div className="row mb-4">
                     <div className="col-md-6">
@@ -104,11 +94,7 @@ const SupplierRegister = (props) => {
                             onChange={handleChange}
                             placeholder="Enter your name"
                         />
-                        {formErrors.name && (
-                            <span className="text-danger">
-                                {formErrors.name}
-                            </span>
-                        )}
+                        {formErrors.name && <span className="text-danger">{formErrors.name}</span>}
                     </div>
                 </div>
 
@@ -123,9 +109,7 @@ const SupplierRegister = (props) => {
                             placeholder="Enter your email"
                         />
                         {formErrors.email && (
-                            <span className="text-danger">
-                                {formErrors.email}
-                            </span>
+                            <span className="text-danger">{formErrors.email}</span>
                         )}
                     </div>
                 </div>
@@ -141,9 +125,7 @@ const SupplierRegister = (props) => {
                                 placeholder="Enter your password"
                             />
                             {formErrors.password && (
-                                <span className="text-danger">
-                                    {formErrors.password}
-                                </span>
+                                <span className="text-danger">{formErrors.password}</span>
                             )}
                         </div>
                     </div>
@@ -152,7 +134,7 @@ const SupplierRegister = (props) => {
                 <input
                     className="btn btn-primary"
                     type="submit"
-                    value={_id ? "Save" : "Register"}
+                    value={_id ? 'Save' : 'Register'}
                 />
 
                 <Button
@@ -160,7 +142,7 @@ const SupplierRegister = (props) => {
                     type="button"
                     value="Cancel"
                     handleClick={() => {
-                        props.history.push("/")
+                        props.history.push('/')
                     }}
                 />
             </form>

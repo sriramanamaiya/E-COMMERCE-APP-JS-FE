@@ -1,9 +1,10 @@
-import axios from "axios"
+import axios from 'axios'
 import swal from 'sweetalert'
 
 export const startGetProducts = () => {
     return (dispatch) => {
-        axios.get('/api/product/')   
+        axios
+            .get('/api/product/')
             .then((response) => {
                 const result = response.data
                 // console.log('get pro', result)
@@ -11,9 +12,9 @@ export const startGetProducts = () => {
             })
             .catch((error) => {
                 console.log(error)
-            })  
+            })
     }
-} 
+}
 
 export const setProducts = (products) => {
     return {
@@ -25,11 +26,12 @@ export const setProducts = (products) => {
 export const startCreateProduct = (productData, suppId, redirect) => {
     console.log('supplier idd')
     return (dispatch) => {
-        axios.post(`/api/product/${suppId}`, productData, {
-            headers: {
-                "Token" : `Bearer ${localStorage.getItem('token')}`
-            }
-        })
+        axios
+            .post(`/api/product/${suppId}`, productData, {
+                headers: {
+                    Token: `Bearer ${localStorage.getItem('token')}`
+                }
+            })
             .then((response) => {
                 const result = response.data
                 console.log('add pro', result)
@@ -51,11 +53,12 @@ export const addProduct = (product) => {
 
 export const startEditProduct = (editedData, productId, closeModal) => {
     return (dispatch) => {
-        axios.put(`/api/product/${productId}`, editedData, {
-            headers: {
-                "Token" : `Bearer ${localStorage.getItem('token')}`
-            }
-        })
+        axios
+            .put(`/api/product/${productId}`, editedData, {
+                headers: {
+                    Token: `Bearer ${localStorage.getItem('token')}`
+                }
+            })
             .then((response) => {
                 const result = response.data
                 console.log('upd res', result)
@@ -63,7 +66,7 @@ export const startEditProduct = (editedData, productId, closeModal) => {
                 dispatch(updateProduct(result))
             })
             .catch((error) => {
-                console.log(error) 
+                console.log(error)
             })
     }
 }
@@ -75,13 +78,14 @@ export const updateProduct = (result) => {
     }
 }
 
-export const startDeleteProduct= (productId) => {
+export const startDeleteProduct = (productId) => {
     return (dispatch) => {
-        axios.delete(`/api/product/${productId}`, {
-            headers: {
-                "Token" : `Bearer ${localStorage.getItem('token')}`
-            }
-        })
+        axios
+            .delete(`/api/product/${productId}`, {
+                headers: {
+                    Token: `Bearer ${localStorage.getItem('token')}`
+                }
+            })
             .then((response) => {
                 const result = response.data
                 console.log('del prood', result)
@@ -96,6 +100,6 @@ export const startDeleteProduct= (productId) => {
 export const removeProduct = (productId) => {
     return {
         type: 'REMOVE_PRODUCT',
-        payload: productId 
+        payload: productId
     }
 }

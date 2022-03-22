@@ -2,8 +2,8 @@
 
 ### 🛠️ Tech Stack
 
--   💻 JavaScript | ES6
--   🌐 React JS
+-   💻 JavaScript | ES6 | ES7
+-   🌐 React JS | Redux JS | Bootstrap
 -   🔧 Git
 
 ## Manual Setup

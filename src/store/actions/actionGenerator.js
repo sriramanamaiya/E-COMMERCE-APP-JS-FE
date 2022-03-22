@@ -1,24 +1,24 @@
-import axios from "axios"
-import jwt_decode from "jwt-decode"
-import swal from "sweetalert"
-import Swal from "sweetalert2"
+import axios from 'axios'
+import jwt_decode from 'jwt-decode'
+import swal from 'sweetalert'
+import Swal from 'sweetalert2'
 
 export const startsupplierLogin = (formData, redirect) => {
     return (dispatch) => {
         axios
-            .post("/api/suppliers/login", formData)
+            .post('/api/suppliers/login', formData)
             .then((response) => {
                 const result = response.data
                 const id = jwt_decode(result.accessToken)
-                localStorage.setItem("token", result.accessToken)
-                localStorage.setItem("role", result.isAdmin)
+                localStorage.setItem('token', result.accessToken)
+                localStorage.setItem('role', result.isAdmin)
                 dispatch(supplierLoginedIn())
                 dispatch(startGetSupplierAccountDetails(id.id, id))
                 Swal.fire({
-                    icon: "success",
-                    title: "SucessFully Logged In",
+                    icon: 'success',
+                    title: 'SucessFully Logged In',
                     showConfirmButton: false,
-                    timer: 2000,
+                    timer: 2000
                 })
                 redirect()
             })
@@ -30,7 +30,7 @@ export const startsupplierLogin = (formData, redirect) => {
 
 export const supplierLoginedIn = () => {
     return {
-        type: "SUPPLIER_LOGIN",
+        type: 'SUPPLIER_LOGIN'
     }
 }
 
@@ -39,8 +39,8 @@ export const startGetSupplierAccountDetails = (id) => {
         axios
             .get(`/api/suppliers/${id}`, {
                 headers: {
-                    Token: `Bearer ${localStorage.getItem("token")}`,
-                },
+                    Token: `Bearer ${localStorage.getItem('token')}`
+                }
             })
             .then((response) => {
                 console.log(response.data)
@@ -54,21 +54,21 @@ export const startGetSupplierAccountDetails = (id) => {
 
 export const supplierData = (data) => {
     return {
-        type: "SUPPLIER_DATA",
-        payload: data,
+        type: 'SUPPLIER_DATA',
+        payload: data
     }
 }
 
 export const startSupplierRegister = (formData, redirect) => {
     return (dispatch) => {
         axios
-            .post("/api/suppliers/register", formData)
+            .post('/api/suppliers/register', formData)
             .then((response) => {
                 Swal.fire({
-                    icon: "success",
-                    title: "Your new Supplier Account has been Created",
+                    icon: 'success',
+                    title: 'Your new Supplier Account has been Created',
                     showConfirmButton: false,
-                    timer: 2000,
+                    timer: 2000
                 })
                 redirect()
             })
@@ -83,8 +83,8 @@ export const startSupplierAccountEdit = (id, formData, handleClose) => {
         axios
             .put(`/api/suppliers/${id}`, formData, {
                 headers: {
-                    Token: `Bearer ${localStorage.getItem("token")}`,
-                },
+                    Token: `Bearer ${localStorage.getItem('token')}`
+                }
             })
             .then((response) => {
                 dispatch(supplierEditedAccount(response.data))
@@ -98,26 +98,26 @@ export const startSupplierAccountEdit = (id, formData, handleClose) => {
 
 export const supplierEditedAccount = (data) => {
     return {
-        type: "SUPPLIER_EDITED_ACCOUNT",
-        payload: data,
+        type: 'SUPPLIER_EDITED_ACCOUNT',
+        payload: data
     }
 }
 
 export const stateAddAddress = (formData) => {
     return (dispatch) => {
         axios
-            .post("/api/suppAddress/register", formData, {
+            .post('/api/suppAddress/register', formData, {
                 headers: {
-                    Token: `Bearer ${localStorage.getItem("token")}`,
-                },
+                    Token: `Bearer ${localStorage.getItem('token')}`
+                }
             })
             .then((Response) => {
                 const data = Response.data
-                console.log("addres", data)
-                if (data.hasOwnProperty("errors")) {
+                console.log('addres', data)
+                if (data.hasOwnProperty('errors')) {
                     dispatch(setAddAddressError(data.message))
                 } else {
-                    dispatch(setAddAddressError(""))
+                    dispatch(setAddAddressError(''))
                     dispatch(setAddAddress(data))
                 }
             })
@@ -128,23 +128,23 @@ export const stateAddAddress = (formData) => {
 }
 export const setAddAddress = (data) => {
     return {
-        type: "ADDADDRESS",
-        payload: data,
+        type: 'ADDADDRESS',
+        payload: data
     }
 }
 export const setAddAddressError = (error) => {
     return {
-        type: "ADDRESSERROR",
-        payload: error,
+        type: 'ADDRESSERROR',
+        payload: error
     }
 }
 export const stateAllAddresses = () => {
     return (dispatch) => {
         axios
-            .get("/api/addresses", {
+            .get('/api/addresses', {
                 headers: {
-                    Token: `Bearer ${localStorage.getItem("token")}`,
-                },
+                    Token: `Bearer ${localStorage.getItem('token')}`
+                }
             })
             .then((Response) => {
                 const data = Response.data
@@ -157,8 +157,8 @@ export const stateAllAddresses = () => {
 }
 export const setAllAddresses = (data) => {
     return {
-        type: "ALLADDRESSES",
-        payload: data,
+        type: 'ALLADDRESSES',
+        payload: data
     }
 }
 export const stateDeleteAddress = (id) => {
@@ -166,8 +166,8 @@ export const stateDeleteAddress = (id) => {
         axios
             .delete(`/api/address/${id}`, {
                 headers: {
-                    Token: `Bearer ${localStorage.getItem("token")}`,
-                },
+                    Token: `Bearer ${localStorage.getItem('token')}`
+                }
             })
             .then((Response) => {
                 const data = Response.data
@@ -180,7 +180,7 @@ export const stateDeleteAddress = (id) => {
 }
 const setDeleteAddress = (data) => {
     return {
-        type: "DELETEADDRESS",
-        payload: data,
+        type: 'DELETEADDRESS',
+        payload: data
     }
 }

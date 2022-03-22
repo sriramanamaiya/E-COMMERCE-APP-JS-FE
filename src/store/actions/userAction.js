@@ -1,21 +1,21 @@
-import axios from "axios"
-import Swal from "sweetalert2"
-import { startGetCart } from "./cartActions"
+import axios from 'axios'
+import Swal from 'sweetalert2'
+import { startGetCart } from './cartActions'
 
 export const startRegisterUser = (formData, redirect) => {
     return (dispatch) => {
         axios
-            .post("/api/users/register", formData)
+            .post('/api/users/register', formData)
             .then((res) => {
                 const result = res.data
-                if (result.hasOwnProperty("errors")) {
+                if (result.hasOwnProperty('errors')) {
                     alert(result.message)
                 } else {
                     Swal.fire({
-                        icon: "success",
-                        title: "Your new User Account has been Created",
+                        icon: 'success',
+                        title: 'Your new User Account has been Created',
                         showConfirmButton: false,
-                        timer: 2000,
+                        timer: 2000
                     })
                     redirect()
                 }
@@ -29,23 +29,23 @@ export const startRegisterUser = (formData, redirect) => {
 export const startUserLogin = (loginData, redirect) => {
     return (dispatch) => {
         axios
-            .post("/api/users/login", loginData)
+            .post('/api/users/login', loginData)
             .then((res) => {
                 const result = res.data
-                console.log("adminLoginAction", result)
-                if (result.hasOwnProperty("errors")) {
+                console.log('adminLoginAction', result)
+                if (result.hasOwnProperty('errors')) {
                     alert(result.errors)
                 } else {
-                    localStorage.setItem("token", result.accessToken)
-                    localStorage.setItem("role", result.isAdmin)
+                    localStorage.setItem('token', result.accessToken)
+                    localStorage.setItem('role', result.isAdmin)
                     dispatch(userLoggedIn())
                     dispatch(startGetUserAccountDetails(result._id))
                     dispatch(startGetCart())
                     Swal.fire({
-                        icon: "success",
-                        title: "SucessFully Logged In",
+                        icon: 'success',
+                        title: 'SucessFully Logged In',
                         showConfirmButton: false,
-                        timer: 2000,
+                        timer: 2000
                     })
                     redirect()
                 }
@@ -58,7 +58,7 @@ export const startUserLogin = (loginData, redirect) => {
 
 export const userLoggedIn = () => {
     return {
-        type: "USER_LOGGEDIN",
+        type: 'USER_LOGGEDIN'
     }
 }
 
@@ -67,8 +67,8 @@ export const startGetUserAccountDetails = (id) => {
         axios
             .get(`/api/users/${id}`, {
                 headers: {
-                    Token: `Bearers ${localStorage.getItem("token")}`,
-                },
+                    Token: `Bearers ${localStorage.getItem('token')}`
+                }
             })
             .then((response) => {
                 console.log(response.data)
@@ -82,8 +82,8 @@ export const startGetUserAccountDetails = (id) => {
 
 export const userLoginInfo = (result) => {
     return {
-        type: "USERLOGIN",
-        payload: result,
+        type: 'USERLOGIN',
+        payload: result
     }
 }
 
@@ -92,8 +92,8 @@ export const startEditUserAccount = (id, formData, handleClose) => {
         axios
             .put(`/api/users/${id}`, formData, {
                 headers: {
-                    Token: `Bearer ${localStorage.getItem("token")}`,
-                },
+                    Token: `Bearer ${localStorage.getItem('token')}`
+                }
             })
             .then((response) => {
                 dispatch(userEditedAccount(response.data))
@@ -107,7 +107,7 @@ export const startEditUserAccount = (id, formData, handleClose) => {
 
 export const userEditedAccount = (data) => {
     return {
-        type: "USER_EDITED_ACCOUNT",
-        payload: data,
+        type: 'USER_EDITED_ACCOUNT',
+        payload: data
     }
 }

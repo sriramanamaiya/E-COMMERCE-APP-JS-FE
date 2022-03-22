@@ -5,13 +5,13 @@ const InputField = (props) => {
 
     return (
         <input
-            className={ className }
-            type={ type }
-            value={ value }
-            onChange={ handleChange }
-            name={ name }
-            placeholder={ placeholder }
-            disabled={ disabled }
+            className={className}
+            type={type}
+            value={value}
+            onChange={handleChange}
+            name={name}
+            placeholder={placeholder}
+            disabled={disabled}
         />
     )
 }

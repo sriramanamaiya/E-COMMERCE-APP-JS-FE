@@ -1,12 +1,12 @@
 import React from 'react'
-import Navbar from './NavBar';
+import RouteComp from './components/Route/RouteComp'
 
 const App = (props) => {
-  return (
-    <div>
-      <Navbar/>
-    </div>
-  )
+    return (
+        <div>
+            <RouteComp />
+        </div>
+    )
 }
 
-export default App;
+export default App
