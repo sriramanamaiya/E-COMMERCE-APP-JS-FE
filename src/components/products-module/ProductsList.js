@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import EditProduct from './EditProduct'
 import DeleteProduct from './DeleteProduct'
@@ -14,8 +14,6 @@ import rog_zeprus from '../../assests/rog_zeprus.jpg'
 import Image from '../reusables/Image'
 
 const ProductsList = (props) => {
-    const dispatch = useDispatch()
-
     const data = useSelector((state) => {
         return [state.customer.isLogin, state.supplierLogin.supplierLogin, state.products.data]
     })
@@ -29,29 +27,31 @@ const ProductsList = (props) => {
                     return (
                         <div className="col-lg-3 my-3 py-3 py-sm-0" key={i}>
                             <div className="card">
-                                {product.name === 'Asus Vivobook 14' && (
+                                {product.name.toLowerCase().includes('asus') && (
                                     <Image src={asus_2} alt="Asus vivobook" />
                                 )}
 
-                                {product.name === 'MacBook Air' && (
+                                {product.name.toLowerCase().includes('mac') && (
                                     <Image src={macbook_air} alt="MacBook Air" />
                                 )}
 
-                                {product.name === 'Acer Nitro 5' && (
+                                {product.name.toLowerCase().includes('acer') && (
                                     <Image src={acer_nitro} alt="Acer Nitro 5" />
                                 )}
 
-                                {product.name === 'Asus TUF Gaming' && (
+                                {product.name.toLowerCase().includes('tuf') && (
                                     <Image src={asus_tuf} alt="Asus TUF Gaming" />
                                 )}
 
-                                {product.name === 'MSI GF75' && <Image src={msi} alt="MSI GF75" />}
+                                {product.name.toLowerCase().includes('msi') && (
+                                    <Image src={msi} alt="MSI GF75" />
+                                )}
 
-                                {product.name === 'Apple MacBook Pro M1' && (
+                                {product.name.toLowerCase().includes('apple') && (
                                     <Image src={macbook_pro} alt="Apple MacBook Pro M1" />
                                 )}
 
-                                {product.name === 'Asus Rog Zephyrus G14' && (
+                                {product.name.toLowerCase().includes('rog') && (
                                     <Image src={rog_zeprus} alt="Asus Rog Zephyrus G14" />
                                 )}
 
