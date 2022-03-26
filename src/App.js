@@ -3,7 +3,7 @@ import RouteComp from './components/Route/RouteComp'
 
 const App = (props) => {
     return (
-        <div>
+        <div class="container">
             <RouteComp />
         </div>
     )

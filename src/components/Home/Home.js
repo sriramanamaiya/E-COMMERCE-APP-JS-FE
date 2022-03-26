@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 
 import ProductList from '../products-module/ProductsList'
 import { startGetProducts } from '../../store/actions/productsAction'
+import HomeCarousel from './HomeCarousel'
 
 const Home = (props) => {
     const dispatch = useDispatch()
@@ -12,7 +13,8 @@ const Home = (props) => {
     }, [])
 
     return (
-        <div className="container">
+        <div>
+            <HomeCarousel />
             <ProductList />
         </div>
     )
